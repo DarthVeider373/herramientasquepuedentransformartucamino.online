@@ -6,24 +6,23 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
 }
-
 body {
   font-family: "Roboto", sans-serif;
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   color: #111111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
 a {
   color: inherit;
   text-decoration: none;
 }
-
 h1 {
   font-weight: inherit;
 }
@@ -31,12 +30,13 @@ h1 {
 /* ===== Layout geral ===== */
 .page {
   width: 100%;
+  flex: 1 0 auto;          /* ocupa o espaço disponível e empurra o rodapé pro fim */
+  display: flex;
+  flex-direction: column;
 }
-
 .spacer {
   height: 60px;
 }
-
 @media screen and (max-width: 480px) {
   .spacer {
     height: 30px;
@@ -51,18 +51,15 @@ h1 {
   display: flex;
   justify-content: center;
 }
-
 @media screen and (max-width: 480px) {
   .hero {
     padding: 25px 0;
   }
 }
-
 .hero__inner {
   max-width: 1140px;
   width: 100%;
 }
-
 .hero__title {
   text-align: center;
   font-family: "Poppins", sans-serif;
@@ -72,14 +69,12 @@ h1 {
   color: #111111;
   margin: 0 80px;
 }
-
 @media screen and (max-width: 480px) {
   .hero__title {
     font-size: 22px;
     margin: 0 16px;
   }
 }
-
 .hero__highlight {
   background: rgba(255, 245, 0, 1);
   box-decoration-break: clone;
@@ -87,47 +82,50 @@ h1 {
 }
 
 /* ===== Vídeo (VSL) ===== */
+/* IMPORTANTE: sem aspect-ratio, sem overflow:hidden, sem altura fixa.
+   O wrapper precisa crescer livre quando a VTurb injeta o bloco de
+   oferta embaixo do vídeo — é isso que faz o rodapé descer junto. */
 .video-section {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 0 20px;
 }
-
 .video-wrapper {
   max-width: 1140px;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
 }
-
+.video-wrapper vturb-smartplayer {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
 .video-player {
   display: block;
   margin: 0 auto;
   width: 100%;
-  height: 100%;
 }
 
 /* ===== Rodapé ===== */
 .footer {
+  position: static;        /* sempre no fluxo normal, nunca por cima */
   width: 100%;
-  padding: 10px 0;
+  flex-shrink: 0;
+  margin-top: auto;        /* gruda no fim quando a página é curta */
+  padding: 24px 0;
   background: rgba(30, 30, 74, 1);
 }
-
 .footer__inner {
   max-width: 1140px;
   margin: 0 auto;
   padding: 10px 100px;
   text-align: center;
 }
-
 @media screen and (max-width: 480px) {
   .footer__inner {
     padding: 10px 16px;
   }
 }
-
 .footer__link {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
@@ -135,11 +133,9 @@ h1 {
   color: #ffffff;
   margin: 0 8px;
 }
-
 .footer__link:hover {
   text-decoration: underline;
 }
-
 .footer__disclaimer {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
